@@ -1,0 +1,6 @@
+- Mechanism to add transactions (use a FIFO for simplicity)
+- How and when to verify if the transaction are correct ? (part of the consensus ?)
+- Time to have a wallet (can sign) and a validator (can verify) ?
+- How to store the blockchain ?
+- I want to learn websocket, where to use them ?
+- Where to practice async programming ?
