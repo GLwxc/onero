@@ -42,8 +42,8 @@ fn main() {
     for _ in 0..10 {
         mempool.add_transaction(
           Transaction { 
-            sender: "1".to_string(),
-            receiver: "1".to_string(),
+            sender: "onerotoshi".to_string(),
+            receiver: "onerotoshi".to_string(),
             amount: 10,
             fee: 0,
           } 

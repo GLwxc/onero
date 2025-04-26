@@ -15,10 +15,27 @@ pub struct Blockchain {
 impl Blockchain {
     pub fn new(consensus: Box<dyn Consensus>, difficulty: u32) -> Self {
         let mut chain = LinkedList::new();
+
+        // Create initial "funding" transactions
+        let initial_transactions = vec![
+            Transaction {
+                sender: "onerotoshi".to_string(), // Special "zero" address = genesis
+                receiver: "onerotoshi".to_string(),
+                amount: 1_000_000,
+                fee: 0,
+            },
+            Transaction {
+                sender: "onerotoshi".to_string(),
+                receiver: "onerotoshi".to_string(),
+                amount: 1_000_000,
+                fee: 0,
+            },
+        ];
+
         let genesis_block = Block::new(
             0,
             1634227200, // Assuming a UNIX timestamp for simplicity
-            vec![],
+            initial_transactions,
             "0".to_string(), // Assuming this is the first block
             "".to_string(),  // Will be calculated later based on the genesis_block itself
             0,               // First nonce
@@ -50,5 +67,18 @@ impl Blockchain {
             panic!("You mined an invalid block. Abort.")
         }
     }
+    pub fn get_balance(&self, address: &str) -> u32 {
+        let mut balance = 0;
+        for block in &self.chain {
+            for tx in &block.transactions {
+                if tx.receiver == address {
+                    balance += tx.amount;
+                }
+                if tx.sender == address {
+                    balance -= tx.amount + tx.fee;
+                }
+            }
+        }
+        balance
+    }
 }
-
