@@ -1,4 +1,5 @@
 pub mod pow;
+pub mod pos;
 
 use crate::block::Block;
 use crate::transaction::Transaction;
