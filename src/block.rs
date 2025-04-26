@@ -10,13 +10,6 @@ pub struct Block {
     pub nonce: u32,         // Nonce
 }
 
-//#[derive(Debug, Clone)]// Define the Transaction struct (assuming you have a separate transaction module)
-//pub struct Transaction {
-//    pub sender: String,
-//    pub receiver: String,
-//    pub amount: u32,
-//}
-
 impl Block {
     // Constructor method to create a new block
     pub fn new(index: u32, timestamp: u64, transactions: Vec<Transaction>, prev_hash: String, hash: String, nonce: u32) -> Self {
