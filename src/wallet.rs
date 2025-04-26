@@ -23,14 +23,6 @@ impl Wallet {
         Wallet { key_pair }
     }
 
-    pub fn from_random() -> Self {
-        use ring::rand::SystemRandom;
-        let rng = SystemRandom::new();
-        let pkcs8 = Ed25519KeyPair::generate_pkcs8(&rng).expect("Failed to generate keypair");
-        let key_pair = Ed25519KeyPair::from_pkcs8(pkcs8.as_ref()).expect("Failed to parse keypair");
-        Wallet { key_pair }
-  }
-
     pub fn public_key_bytes(&self) -> &[u8] {
         self.key_pair.public_key().as_ref()
     }
