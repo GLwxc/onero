@@ -2,6 +2,7 @@ use crate::transaction::{Transaction,calculate_hash};
 use crate::block::Block;
 use crate::blockchain::Blockchain;
 use super::Consensus; // import the trait
+use chrono::Utc;
 
 pub struct ProofOfWork;
 
@@ -17,7 +18,7 @@ impl Consensus for ProofOfWork {
             if hash.starts_with(&"0".repeat(blockchain.difficulty as usize)) {
                 return Block {
                     index: blockchain.chain.back().unwrap().index + 1, // Set appropriate values
-                    timestamp: 0, // Set appropriate values
+                    timestamp: Utc::now().timestamp().try_into().unwrap(), // Set appropriate values
                     transactions: transactions.to_vec(),
                     prev_hash: prev_hash.to_string(),
                     hash: hash,

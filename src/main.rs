@@ -111,6 +111,7 @@ fn main() {
     // Print the blockchain
     for block in onero_blockchain_pow.chain.iter() {
       println!("Block {}: ", block.index);
+      println!("  Timestamp: {:?}", block.timestamp);
       println!("  Transactions: {:?}", block.transactions);
       println!("  Previous Hash: {:?}", block.prev_hash);
       println!("  Hash: {:?}", block.hash);
