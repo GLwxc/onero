@@ -3,12 +3,14 @@ mod blockchain;
 mod transaction;
 mod signature;
 mod wallet;
+mod consensus;
 
 use block::{Block};
-use blockchain::{Blockchain, ProofOfWork};
+use blockchain::{Blockchain};
 use transaction::{Transaction, MemPool, OptimizationFn};
 use signature::{SignedTransaction};
 use wallet::{Wallet};
+use consensus::pow::{ProofOfWork};
 
 use ring::digest;
 use ring::rand::{SecureRandom, SystemRandom};
@@ -23,7 +25,7 @@ use hex::encode;
 fn main() {
     // Create a new blockchain
     let pow = Box::new(ProofOfWork);
-    let difficulty = 3;
+    let difficulty = 4;
     let mut mempool = MemPool::new();
     let mut onero_blockchain_pow = Blockchain::new(pow, difficulty);
 

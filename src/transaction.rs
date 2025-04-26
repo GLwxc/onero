@@ -2,6 +2,8 @@ use std::collections::VecDeque;
 
 use serde::Serialize;
 
+use sha2::{Digest, Sha256};
+
 pub type OptimizationFn = fn(&[&Transaction]) -> Vec<Transaction>;
 
 #[derive(Debug, Clone)]// Define the Block struct
@@ -21,6 +23,17 @@ impl Transaction {
   pub fn as_raw(&self) -> Vec<u8> {
     bincode::serialize(self).expect("Failed to serialize Transaction")
   }
+}
+
+pub fn calculate_hash(nonce: &u32, transactions: &Vec<Transaction>, prev_hash: &String) -> String {
+  let mut hasher = Sha256::new();
+  hasher.update(format!(
+      "{:?}{}{}",
+     transactions, prev_hash, nonce
+  ));
+
+  let result = hasher.finalize();
+  format!("{:x}", result)
 }
 
 impl MemPool {
